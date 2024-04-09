@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
             hourElement.textContent =  `${displayHour(item.hour-1)}`;
             
             const priceElement = document.createElement('div');
-            priceElement.textContent = `Price: ${(item.price*100).toFixed(2)}`;
+            priceElement.textContent = `Price: ${(item.price*100).toFixed(2) + '¢'}`;
   
             const indicatorElement = document.createElement('div');
             indicatorElement.textContent = `${item.indicator}`;
