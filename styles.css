@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #333;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); /* Increased the minimum width */
+    grid-auto-rows: minmax(88px, auto); /* Increased the minimum height */
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .tile {
+    border-radius: 5px;
+    padding: 11px; /* Increased the padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    font-weight: bold;
+    font-size: 1.1em; /* Increased the font size */
+  }
+  
+  .tile:hover {
+    transform: scale(1.05);
+  }
