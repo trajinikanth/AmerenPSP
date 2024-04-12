@@ -1,10 +1,10 @@
 const theme = {
     default: {
-      'cheapest': { background: 'green', foreground: 'white' },
-      'highest-price': { background: 'red', foreground: 'white' },
-      'best-time': { background: 'blue', foreground: 'white' },
-      'peak-hour': { background: 'orange', foreground: 'black' },
-      'ok-hour': { background: 'yellow', foreground: 'black' },
+      'cheapest': { background: '#00ff00', foreground: 'white' },
+      'highest-price': { background: '#ff0000', foreground: 'white' },
+      'best-time': { background: '#999900', foreground: 'white' },
+      'peak-hour': { background: '#ff8000', foreground: 'black' },
+      'ok-hour': { background: '#ffff51', foreground: 'black' },
     },
     dark: {
       'cheapest': { background: '#00ff00', foreground: 'black' },
