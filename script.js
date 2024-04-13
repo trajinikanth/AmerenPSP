@@ -52,6 +52,9 @@ window.addEventListener('DOMContentLoaded', () => {
       console.error('Error fetching data:', error);
       progressBar.style.width = '0%';
     });
+
+  // Set up automatic page refresh every hour (60 minutes * 60 seconds * 1000 milliseconds)
+  setInterval(refreshPage, 60 * 60 * 1000);
 });
 
 function displayHour(hour) {
@@ -91,6 +94,10 @@ function showTime() {
   document.getElementById('MyClockDisplay').textContent = time;
 
   setTimeout(showTime, 1000);
+}
+
+function refreshPage() {
+  window.location.reload();
 }
 
 // Call the showTime function when the page loads
