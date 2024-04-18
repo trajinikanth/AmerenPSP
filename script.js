@@ -102,3 +102,22 @@ function refreshPage() {
 
 // Call the showTime function when the page loads
 window.addEventListener('DOMContentLoaded', showTime);
+
+
+// Add an event listener to the window object for scroll events
+window.addEventListener("scroll", function() {
+  // Get the div element with the id "MyClockDisplay"
+var clockDisplay = document.getElementById("MyClockDisplay");
+
+  // Get the current scroll position
+  var scrollPosition = window.scrollY;
+
+  // Check if the user has scrolled to the top of the page
+  if (scrollPosition === 0) {
+    // Show the clock display
+    clockDisplay.style.display = "block";
+  } else {
+    // Hide the clock display
+    clockDisplay.style.display = "none";
+  }
+});

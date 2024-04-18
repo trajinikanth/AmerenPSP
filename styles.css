@@ -58,9 +58,11 @@ body {
   top: 10px; /* Add top margin */
   right: 10px; /* Add right margin */
   transform: none; /* Remove the translation transformation */
-  color: #17d4fe;
+  color: #17d4fe;  
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   font-size: 45px;
-  font-family: Poppins;
   letter-spacing: 5px;
 }
 
