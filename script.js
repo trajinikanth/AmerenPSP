@@ -22,12 +22,22 @@ window.addEventListener('DOMContentLoaded', () => {
         tile.style.backgroundColor = background;
         tile.style.color = foreground;
 
+
+        
         const dateElement = document.createElement('div');
         let options = { month: 'long', day: 'numeric', ordinal: true };
         dateElement.textContent = new Intl.DateTimeFormat('en-US', options).format(new Date(item.date));
+        tile.appendChild(dateElement);
+        
+        const hourCircleContainer = document.createElement('div');
+        hourCircleContainer.classList.add('hour-circle-container');
 
-        const hourElement = document.createElement('div');
-        hourElement.textContent = `${displayHour(item.hour - 1)}`;
+        const hourCircle = document.createElement('div');
+        hourCircle.classList.add('hour-circle');
+        hourCircle.textContent = `${displayHour(item.hour - 1)}`;
+
+        hourCircleContainer.appendChild(hourCircle);
+        tile.appendChild(hourCircleContainer);
 
         const priceElement = document.createElement('div');
         priceElement.textContent = `Price: ${(item.price * 100).toFixed(2) + '¢'}`;
@@ -35,8 +45,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const indicatorElement = document.createElement('div');
         indicatorElement.textContent = `${item.indicator}`;
 
-        tile.appendChild(dateElement);
-        tile.appendChild(hourElement);
+        
+
         tile.appendChild(priceElement);
         tile.appendChild(indicatorElement);
 

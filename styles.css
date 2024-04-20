@@ -67,3 +67,23 @@ body {
 }
 
 
+.hour-circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.hour-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #5117fe;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
