@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
   progressBar.style.width = '25%';
 
   fetch(
-    'https://script.google.com/macros/s/AKfycbzZ0jMrxR2wL1RBox2xBMHIuX310Zu5F63BgLB7ZRlMlUkAw9aEIKmlMbhapcXGwvS-/exec?query=next 24 hours'
+    'https://script.google.com/macros/s/AKfycbzZ0jMrxR2wL1RBox2xBMHIuX310Zu5F63BgLB7ZRlMlUkAw9aEIKmlMbhapcXGwvS-/exec?query=next 12 hours'
   )
     .then((response) => {
       progressBar.style.width = '50%';
