@@ -17,13 +17,10 @@ window.addEventListener('DOMContentLoaded', () => {
       data.forEach((item) => {
         const tile = document.createElement('div');
         tile.classList.add('tile', item.indicator);
-        const { background, foreground } =
-          currentTheme[item.indicator] || { background: 'gray', foreground: 'black' };
+        const { background, foreground } = currentTheme[item.indicator] || { background: 'gray', foreground: 'black' };
         tile.style.backgroundColor = background;
         tile.style.color = foreground;
-
-
-        
+          
         const dateElement = document.createElement('div');
         let options = { month: 'long', day: 'numeric', ordinal: true };
         dateElement.textContent = new Intl.DateTimeFormat('en-US', options).format(new Date(item.date));
@@ -38,16 +35,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
         hourCircleContainer.appendChild(hourCircle);
         tile.appendChild(hourCircleContainer);
-
-        const priceElement = document.createElement('div');
-        priceElement.textContent = `Price: ${(item.price * 100).toFixed(2) + '¢'}`;
+        var previousHourPrice = item.price; 
+        const { priceIndicator, previousHourPrice: updatedPreviousHourPrice } = createPriceIndicator(item, data, previousHourPrice);
+        tile.appendChild(priceIndicator);
+        previousHourPrice = updatedPreviousHourPrice;
 
         const indicatorElement = document.createElement('div');
         indicatorElement.textContent = `${item.indicator}`;
-
-        
-
-        tile.appendChild(priceElement);
         tile.appendChild(indicatorElement);
 
         container.appendChild(tile);
@@ -131,3 +125,41 @@ var clockDisplay = document.getElementById("MyClockDisplay");
     clockDisplay.style.display = "none";
   }
 });
+
+function createPriceIndicator(item, data, previousHourPrice) {
+  const priceIndicator = document.createElement('div');
+  priceIndicator.classList.add('price-indicator');
+
+  const priceText = document.createElement('span');
+  priceText.textContent = `${(item.price * 100).toFixed(2) + '¢'}`; 
+  
+      var currentHour = (item.hour === 1) ? 24 : item.hour - 1;    
+      
+    // Find the previous hour's price
+      const previousHour = data.find(h => h.hour === currentHour);
+      
+      if (previousHour) {
+        const arrowIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        arrowIcon.setAttribute('viewBox', '0 0 24 24');
+        arrowIcon.setAttribute('width', '32');
+        arrowIcon.setAttribute('height', '32');
+
+        const arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const currentPrice = item.price;
+
+        const isUpward = currentPrice > previousHour.price;
+        //console.log();
+        //console.log(item,(currentPrice > previousHour.price));
+        previousHourPrice = currentPrice;
+        arrowPath.setAttribute('d', isUpward ? 'M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z' : 'M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z');
+        arrowPath.setAttribute('fill', 'currentColor');
+        arrowIcon.appendChild(arrowPath);
+
+        priceIndicator.appendChild(arrowIcon);
+        priceIndicator.classList.add(isUpward ? 'up' : 'down');
+      } 
+      
+
+  priceIndicator.appendChild(priceText);
+  return { priceIndicator, previousHourPrice };
+}
