@@ -15,12 +15,14 @@ window.addEventListener('DOMContentLoaded', () => {
     .then((data) => {
       progressBar.style.width = '75%';
       data.forEach((item) => {
+
         const tile = document.createElement('div');
         tile.classList.add('tile', item.indicator);
+
         const { background, foreground } = currentTheme[item.indicator] || { background: 'gray', foreground: 'black' };
         tile.style.backgroundColor = background;
         tile.style.color = foreground;
-          
+      
         const dateElement = document.createElement('div');
         let options = { month: 'long', day: 'numeric', ordinal: true };
         dateElement.textContent = new Intl.DateTimeFormat('en-US', options).format(new Date(item.date));
@@ -40,11 +42,21 @@ window.addEventListener('DOMContentLoaded', () => {
         tile.appendChild(priceIndicator);
         previousHourPrice = updatedPreviousHourPrice;
 
-        const indicatorElement = document.createElement('div');
-        indicatorElement.textContent = `${item.indicator}`;
-        tile.appendChild(indicatorElement);
+          // Add ribbon content for cheapest and highest-price tiles
+          if (item.indicator === 'cheapest' || item.indicator === 'highest-price') {
+            const ribbon = document.createElement('div');
+            ribbon.classList.add('ribbon');    
+            const timeIndicator = remainingTime(item.date, item.hour-1);
+            ribbon.textContent = `${timeIndicator}`;
+            tile.appendChild(ribbon);
+          }
 
-        container.appendChild(tile);
+          const ribbon = document.createElement('div');
+          ribbon.classList.add('ribbon-top');    
+          ribbon.textContent = `${item.indicator}`;
+          tile.appendChild(ribbon);
+          
+          container.appendChild(tile);
       });
 
       progressBar.style.width = '100%';
@@ -148,8 +160,6 @@ function createPriceIndicator(item, data, previousHourPrice) {
         const currentPrice = item.price;
 
         const isUpward = currentPrice > previousHour.price;
-        //console.log();
-        //console.log(item,(currentPrice > previousHour.price));
         previousHourPrice = currentPrice;
         arrowPath.setAttribute('d', isUpward ? 'M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z' : 'M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z');
         arrowPath.setAttribute('fill', 'currentColor');
@@ -162,4 +172,27 @@ function createPriceIndicator(item, data, previousHourPrice) {
 
   priceIndicator.appendChild(priceText);
   return { priceIndicator, previousHourPrice };
+}
+
+function remainingTime(itemDate, itemHour) {
+  const now = new Date();
+  const givenHourDate = new Date(itemDate);
+  givenHourDate.setHours(itemHour);
+
+  const timeDiff = givenHourDate.getTime() - now.getTime();
+  const remainingMinutes = Math.floor(timeDiff / (1000 * 60));
+  const remainingHours = Math.floor(remainingMinutes / 60);
+  const roundedMinutes = Math.round(remainingMinutes % 60 / 30) * 30;
+
+  if (roundedMinutes >= 60) {
+    const extraHours = Math.floor(roundedMinutes / 60);
+    const adjustedMinutes = roundedMinutes % 60;
+    const hoursText = `${remainingHours + extraHours} hour${remainingHours + extraHours > 1 ? 's' : ''}`;
+    const minutesText = adjustedMinutes > 0 ? ` ${adjustedMinutes} minute${adjustedMinutes > 1 ? 's' : ''}` : '';
+    return `${hoursText}${minutesText} from now`;
+  } else {
+    const hoursText = remainingHours > 0 ? `${remainingHours} hour${remainingHours > 1 ? 's' : ''} ` : '';
+    const minutesText = roundedMinutes > 0 ? `${roundedMinutes} minute${roundedMinutes > 1 ? 's' : ''} ` : '';
+    return `${hoursText}${minutesText}from now`;
+  }
 }
