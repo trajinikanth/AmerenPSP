@@ -1,13 +1,19 @@
 window.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.container');
   const progressBar = document.querySelector('.progress-bar');
-
+const URL =  'https://script.google.com/macros/s/AKfycbzZ0jMrxR2wL1RBox2xBMHIuX310Zu5F63BgLB7ZRlMlUkAw9aEIKmlMbhapcXGwvS-/exec?query=next 12 hours;
+  
   // Show progress bar
   progressBar.style.width = '25%';
-
-  fetch(
-    'https://script.google.com/macros/s/AKfycbzZ0jMrxR2wL1RBox2xBMHIuX310Zu5F63BgLB7ZRlMlUkAw9aEIKmlMbhapcXGwvS-/exec?query=next 12 hours'
-  )
+ 
+    fetch(URL, {
+      redirect: "follow",
+      method: "GET",
+      body: JSON.stringify(DATA),
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    })
     .then((response) => {
       progressBar.style.width = '50%';
       return response.json();
