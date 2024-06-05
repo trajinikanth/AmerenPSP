@@ -9,7 +9,6 @@ const URL =  'https://script.google.com/macros/s/AKfycbzZ0jMrxR2wL1RBox2xBMHIuX3
     fetch(URL, {
       redirect: "follow",
       method: "GET",
-      body: JSON.stringify(DATA),
       headers: {
         "Content-Type": "text/plain;charset=utf-8",
       },
