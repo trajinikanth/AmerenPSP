@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.container');
   const progressBar = document.querySelector('.progress-bar');
-const URL =  'https://script.google.com/macros/s/AKfycbzZ0jMrxR2wL1RBox2xBMHIuX310Zu5F63BgLB7ZRlMlUkAw9aEIKmlMbhapcXGwvS-/exec?query=next 12 hours;
+const URL =  'https://script.google.com/macros/s/AKfycbzZ0jMrxR2wL1RBox2xBMHIuX310Zu5F63BgLB7ZRlMlUkAw9aEIKmlMbhapcXGwvS-/exec?query=next 12 hours';
   
   // Show progress bar
   progressBar.style.width = '25%';
